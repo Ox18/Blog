@@ -16,14 +16,44 @@ const Sidebar = () => {
       >
       <div>a</div>
       <div>b</div>
-      <Container pb="16px">
+      {/* <Container pb="16px">
         <Image 
           src={"/images/profile/profile.jpg"} 
-          size="100px" 
+          width="32px"
+          height="32px"
           rounded="full" 
           alt='profile'
           loading={"lazy"}
         />
+        <Circle
+          size={"32px"}
+          bg="yellow"
+        />
+      </Container> */}
+      <Container pb="16px">
+        <Flex
+          direction={"column"}
+          alignItems={"center"}
+          justifyContent={"center"}
+          width="100%"
+          position={"relative"}
+        >
+          <Image
+            src={"/images/profile/profile.jpg"}
+            width="32px"
+            height="32px"
+            alt='profile'
+            loading={"lazy"}
+            rounded="full"
+          />
+          <Circle
+            width="32px"
+            height="32px"
+            position={"absolute"}
+            rounded="full"
+            boxShadow={"rgb(0 0 0 / 5%) 0px 0px 0px 1px inset"}
+          />
+        </Flex>
       </Container>
     </Flex>
   )
