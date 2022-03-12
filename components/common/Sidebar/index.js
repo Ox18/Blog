@@ -1,8 +1,8 @@
 import React from 'react'
-import { Circle, Container, Divider, Flex, Image } from '@chakra-ui/react'
+import { Circle, Container, Divider, Flex } from '@chakra-ui/react'
 import { BiHomeAlt, BiBell, BiBookmarks, BiSpreadsheet, BiEdit } from 'react-icons/bi'
-import Icon from "../Icon";
 import SidebarLink from '../SidebarLink';
+import CircleImageMin from '../CircleImageMin';
 
 const Sidebar = () => {
   return (
@@ -40,14 +40,7 @@ const Sidebar = () => {
           width="100%"
           position={"relative"}
         >
-          <Image
-            src={"/images/profile/profile.jpg"}
-            width="32px"
-            height="32px"
-            alt='profile'
-            loading={"lazy"}
-            rounded="full"
-          />
+          <CircleImageMin />
           <Circle
             width="32px"
             height="32px"

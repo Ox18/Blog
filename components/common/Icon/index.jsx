@@ -3,7 +3,7 @@ import * as ColorUtil from "../../../util/Color.util"
 
 const Icon = ({
     from: IconContainer,
-    color= "white",
+    color= "dark-gray",
     size= "24px",
     colorHover= "black",
     controlled= false,
@@ -26,6 +26,7 @@ const Icon = ({
 
     const style = {
         transition: "all 0.2s ease-in-out",
+        cursor: "pointer",
     }
 
   return (
