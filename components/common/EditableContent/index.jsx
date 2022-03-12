@@ -75,7 +75,8 @@ const EditableContent = ({
     label,
     setLabel,
     onEnterCreateItem,
-    initialFocus = false
+    initialFocus = false,
+    styles = []
 }) => {
 
     const refEditable = useRef(null)
@@ -99,6 +100,8 @@ const EditableContent = ({
             if(refEditable.current && initialFocus){
                 refEditable.current.focus();
                 console.log("focus")
+                // change scroll top in this position top
+                window.scrollTo(0, refEditable.current.offsetTop - 100);
             }
         }, 100);
     }, [])
