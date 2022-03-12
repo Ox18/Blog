@@ -1,16 +1,18 @@
-import { useState } from "react";   
+import { useState, useRef, useEffect } from "react";   
 import { Heading } from "@chakra-ui/react";
 import { useForm } from "../../../hooks/useForm";
 
 const EditableContent = () => {
 
-  const [values, handleChange] = useForm({
-    label: "gaa"
-  });
+    const initialValue = "Titulo";
+
+    const refEditable = useRef(null);
+
+    const [label, setLabel] = useState(initialValue);
 
   const [visibleTextarea, setVisibleTextarea] = useState(false);
 
-  const { label } = values; 
+  const [defaultText, setDefaultText] = useState(initialValue);
 
   const onMouseEnterHeading = ()=>{
     setVisibleTextarea(true);
@@ -25,42 +27,50 @@ const EditableContent = () => {
 
   const onMouseBlurTextarea = ()=>{
     setVisibleTextarea(false);
+    setDefaultText(label);
 }
-
+    
   return (
     <>
         {
             visibleTextarea && (
-                <textarea
-                        onMouseEnter={onMouseEnterTextarea}
-                        onMouseLeave={onMouseLeaveTextarea}
-                        onBlur={onMouseBlurTextarea}
-                        style={{
-                            border: "none !important",
-                            resize: "none",
-                            overflow: "hidden",
-                            outline: "none",
-                            fontFamily: 'Georgia,Cambria,"Times New Roman",Times,serif',
-                            mt: "10px",
-                            fontSize: "2.25rem",
-                            width: "100%",
-                            lineHeight: "1.2",
-                        }}
-                        onChange={handleChange}
-                        name="label"
-                        value={label}
-                        />
+                <span 
+                    contentEditable
+                    onMouseEnter={onMouseEnterTextarea}
+                    onMouseLeave={onMouseLeaveTextarea}
+                    onBlur={onMouseBlurTextarea}
+                    style={{
+                        border: "none !important",
+                        resize: "none",
+                        overflow: "hidden",
+                        outline: "none",
+                        fontFamily: 'Georgia,Cambria,"Times New Roman",Times,serif',
+                        marginTop: "10px",
+                        fontSize: "2.25rem",
+                        width: "100%",
+                        lineHeight: "1.2",
+                    }}
+                    role="textbox"
+                    name="label"
+                    suppressContentEditableWarning
+                    ref={refEditable}
+                    onKeyDown={(e)=>{
+                        setTimeout(()=>{
+                            setLabel(e.target.innerText);
+                        }, 100);
+                    }}
+                >
+                    {defaultText}
+                </span>
             )
         }
         {
-            !visibleTextarea && (
-                <Heading as="h3" size="xl" mt="10px" 
+            !visibleTextarea && (<Heading as="h3" size="xl" mt="10px" 
             onMouseEnter={onMouseEnterHeading}
             onMouseLeave={onMouseLeaveHeading}
             fontFamily={'Georgia,Cambria,"Times New Roman",Times,serif'} fontWeight={"normal"} >
-            {label}
-        </Heading>
-            )
+                {label}
+        </Heading>)
         }
     </>
   )
