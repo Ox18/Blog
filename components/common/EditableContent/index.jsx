@@ -73,14 +73,22 @@ const EditableContent = ({
     placeholder = "Escribe algo",
 }) => {
     const [label, setLabel] = useState("");
-    const [defaultText, setDefaultText] = useState("");
 
     const refEditable = useRef(null)
 
     const [visibleTextarea, setVisibleTextarea] = useState(false)
 
+    const [editing, setEditing] = useState(false);
+
+    const onBlurEditable = ()=>{
+        if(label.length < 1){
+            setVisibleTextarea(false);
+        }
+        setEditing(false);
+    }
+
   return (
-    <Box bg={"yellow.200"}>
+    <Box>
         {
             !visibleTextarea && (
                 <Box
@@ -99,7 +107,7 @@ const EditableContent = ({
         }
         <Box
             ref={refEditable}
-            borderLeft={"1px solid rgba(0,0,0,.15)"}
+            borderLeft={[TYPES.TITLE, TYPES.SUBTITLE].includes(type) && editing ? "1px solid rgba(0,0,0,.15)" : "none"}
             outline={"none"}
             contentEditable
             suppressContentEditableWarning
@@ -108,9 +116,18 @@ const EditableContent = ({
             style={styleText[type]}
             position={visibleTextarea ? "relative" : "absolute"}
             top={visibleTextarea ? "0" : "-9999px"}
-        >
-            {defaultText}
-        </Box>
+            onFocus={() => {
+                setVisibleTextarea(true)
+                setEditing(true);
+            }}
+            onBlur={onBlurEditable}
+            onKeyDown={(e)=>{
+                setTimeout(()=>{
+                    const newLabel = refEditable.current.innerText;
+                    setLabel(newLabel);
+                }, 100)
+            }}
+        ></Box>
     </Box>
   )
 }

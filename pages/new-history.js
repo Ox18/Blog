@@ -6,7 +6,7 @@ export default function NewHistory() {
     return(
     <NewHistoryLayout>
         <Box mt={"20px"} pt={"0px"} pb={"5px"}>
-            <Box maxW={"740px"} pl={"20px"} margin={"0 auto"} width={"100%"} pr={"20px"}>
+            <Box pb={"45px"} maxW={"740px"} pl={"20px"} margin={"0 auto"} width={"100%"} pr={"20px"}>
                 
                 <EditableContent 
                     type="title"
