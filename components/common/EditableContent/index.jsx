@@ -1,81 +1,72 @@
-import { useState, useRef, useEffect } from "react";   
-import { Heading } from "@chakra-ui/react";
-import { useForm } from "../../../hooks/useForm";
+import React, { useState, useRef } from 'react'
+import { Box } from '@chakra-ui/react'
+import Placeholder from './Placeholder'
 
-const EditableContent = () => {
-
-    const initialValue = "Titulo";
-
-    const refEditable = useRef(null);
-
-    const [label, setLabel] = useState(initialValue);
-
-  const [visibleTextarea, setVisibleTextarea] = useState(false);
-
-  const [defaultText, setDefaultText] = useState(initialValue);
-
-  const onMouseEnterHeading = ()=>{
-    setVisibleTextarea(true);
-  }
-
-  const onMouseLeaveHeading = ()=>{}
-
-  const onMouseEnterTextarea = ()=>{ }
-
-  const onMouseLeaveTextarea = ()=>{
-  }
-
-  const onMouseBlurTextarea = ()=>{
-    setVisibleTextarea(false);
-    setDefaultText(label);
+const styleText = {
+    title: {
+        fontSize: "2.9em",
+        fontFamily: 'Georgia,Cambria,"Times New Roman",Times,serif',
+        lineHeight: "1.2",
+    },
+    p: {
+        fontSize: "21px",
+        fontFamily: 'Georgia,Cambria,"Times New Roman",Times,serif',
+        lineHeight: "1.2",
+    }
 }
-    
+
+const TYPES = {
+    P: "p",
+    H1: "h1",
+    H2: "h2",
+    H3: "h3",
+    TITLE: "title",
+}
+
+const EditableContent = ({
+    type = TYPES.TITLE,
+    placeholder = "Escribe algo",
+}) => {
+    const [label, setLabel] = useState("");
+    const [defaultText, setDefaultText] = useState("");
+
+    const refEditable = useRef(null)
+
+    const [visibleTextarea, setVisibleTextarea] = useState(false)
+
   return (
-    <>
+    <Box bg={"yellow.200"}>
         {
-            visibleTextarea && (
-                <span 
-                    contentEditable
-                    onMouseEnter={onMouseEnterTextarea}
-                    onMouseLeave={onMouseLeaveTextarea}
-                    onBlur={onMouseBlurTextarea}
-                    style={{
-                        border: "none !important",
-                        resize: "none",
-                        overflow: "hidden",
-                        outline: "none",
-                        fontFamily: 'Georgia,Cambria,"Times New Roman",Times,serif',
-                        marginTop: "10px",
-                        fontSize: "2.9em",
-                        width: "100%",
-                        lineHeight: "1.2",
-                    }}
-                    role="textbox"
-                    name="label"
-                    suppressContentEditableWarning
-                    ref={refEditable}
-                    onKeyDown={(e)=>{
-                        setTimeout(()=>{
-                            setLabel(e.target.innerText);
-                        }, 100);
-                        if(e.keyCode === 13){
-                            refEditable.current.blur();
-                        }
-                    }}
-                >
-                    {defaultText}
-                </span>
-            )
+            !visibleTextarea && (
+                <Box
+            paddingLeft={"10px"}
+            paddingTop={"20px"}
+            style={styleText[type]}
+            onClick={() => {
+                if(refEditable.current){
+                    setVisibleTextarea(true)
+                    refEditable.current.focus();
+                }
+            }}
+        >
+            <Placeholder label={placeholder} />
+        </Box>)
         }
-        {
-            !visibleTextarea && (<Heading as="h1" size="xl" mt="10px" fontSize={"2.9em"}
-            onMouseEnter={onMouseEnterHeading}
-            onMouseLeave={onMouseLeaveHeading}
-            fontFamily={'Georgia,Cambria,"Times New Roman",Times,serif'} fontWeight={"normal"} >
-                {label}
-        </Heading>)
-        }
-    </>
+        <Box
+            ref={refEditable}
+            borderLeft={"1px solid rgba(0,0,0,.15)"}
+            outline={"none"}
+            contentEditable
+            suppressContentEditableWarning
+            paddingLeft={"10px"}
+            paddingTop={"20px"}
+            style={styleText[type]}
+            position={visibleTextarea ? "relative" : "absolute"}
+            top={visibleTextarea ? "0" : "-9999px"}
+        >
+            {defaultText}
+        </Box>
+    </Box>
   )
 }
 

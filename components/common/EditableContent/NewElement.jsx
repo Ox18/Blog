@@ -2,9 +2,9 @@ import { useState, useRef, useEffect } from "react";
 import { Box, Divider, Flex, Heading } from "@chakra-ui/react";
 import { useForm } from "../../../hooks/useForm";
 
-const EditableContentTitle = () => {
+const NewElement = () => {
 
-    const initialValue = "Titulo";
+    const initialValue = "";
 
     const refEditable = useRef(null);
 
@@ -53,7 +53,7 @@ const EditableContentTitle = () => {
                             outline: "none",
                             fontFamily: 'Georgia,Cambria,"Times New Roman",Times,serif',
                             marginTop: "10px",
-                            fontSize: "2.9em",
+                            fontSize: "21px",
                             width: "100%",
                             lineHeight: "1.2",
                             borderLeft: "1px solid rgba(0,0,0,.15)",
@@ -80,7 +80,7 @@ const EditableContentTitle = () => {
             )
         }
         {
-            !visibleTextarea && (<Heading as="h1" size="xl" mt="10px" fontSize={"2.9em"} pt={"30px"} pl={"11px"}
+            !visibleTextarea && (<Heading as="p" size="xl" mt="10px" fontSize={"21px"} pt={"30px"} pl={"11px"}
             onMouseEnter={onMouseEnterHeading}
             onMouseLeave={onMouseLeaveHeading}
             fontFamily={'Georgia,Cambria,"Times New Roman",Times,serif'} fontWeight={"normal"} >
@@ -93,12 +93,12 @@ const EditableContentTitle = () => {
                 onMouseEnter={onMouseEnterHeading}
                 style={{
                     fontFamily: 'Georgia,Cambria,"Times New Roman",Times,serif',
-                    fontSize: "2.9em",
+                    fontSize: "21px",
                     fontWeight: "normal",
                     color: "rgba(0,0,0,.5)",
                 }}
             >
-                Titulo
+                Escribe algo
             </div>
             )
         }
@@ -120,4 +120,4 @@ const EditableContentTitle = () => {
   )
 }
 
-export default EditableContentTitle
+export default NewElement
