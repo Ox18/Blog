@@ -1,4 +1,4 @@
-import {        Container, Flex } from "@chakra-ui/react";
+import { Container, Flex } from "@chakra-ui/react";
 import Sidebar from "../common/Sidebar";
 
 const MainLayout = ({
