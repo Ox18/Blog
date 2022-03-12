@@ -2,18 +2,19 @@ import { Box, Divider, Flex } from '@chakra-ui/react';
 import React, { useState, useRef } from 'react'
 import { Popover, ArrowContainer } from 'react-tiny-popover'
 import { useMousePosition } from '../../../hooks/useMousePosition'
+import { BiBold, BiItalic, BiLink, BiText } from 'react-icons/bi'
+import { RiDoubleQuotesL } from 'react-icons/ri'
 
 const PopoverTool = ({
     isOpen,
     px,
     py,
 }) => {
-    const clickMeButtonRef = useRef(null);
-    const positionCursor = useMousePosition();
-    
-
+    const clickMeButtonRef = useRef(null);    
   return (
-    <Popover
+    <>
+    {
+      isOpen ? (<Popover
         isOpen={isOpen}
         positions={['top', 'right', 'left', 'bottom']}
         padding={10}
@@ -37,15 +38,30 @@ const PopoverTool = ({
             color: "white"
       }}
     >
-      <Flex flexDirection={"row"} width={"200px"} gap={"10px"}>
-          <div>sda</div>
-          <div>sda</div>
+      <Flex flexDirection={"row"} width={"auto"} gap={"10px"} fontSize={"26px"} justifyContent={"space-between"}>
+          <Box cursor={"pointer"} _hover={{ opacity: 0.7 }}>
+              <BiBold />
+          </Box>
+          <Box cursor={"pointer"} _hover={{ opacity: 0.7 }}>
+              <BiItalic />
+          </Box>
+          <Box cursor={"pointer"} _hover={{ opacity: 0.7 }}>
+              <BiLink />
+          </Box>
           <div style={{
               width: "1px",
                 height: "25px",
                 background: "white"
           }} />
-          <div>sda</div>
+          <Box cursor={"pointer"} _hover={{ opacity: 0.7 }}>
+              <BiText />
+          </Box>
+          <Box cursor={"pointer"} _hover={{ opacity: 0.7 }}>
+              <BiText />
+          </Box>
+          <Box cursor={"pointer"} _hover={{ opacity: 0.7 }}>
+              <RiDoubleQuotesL />
+          </Box>
 
       </Flex>
     </ArrowContainer>
@@ -58,7 +74,9 @@ const PopoverTool = ({
   onClick={() => {}}>
     Click me!
   </button>
-</Popover>
+</Popover>) : null
+    }
+    </>
   )
 }
 

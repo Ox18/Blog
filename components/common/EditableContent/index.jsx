@@ -132,6 +132,11 @@ const EditableContent = ({
                     setLabel(newLabel);
                 }, 100)
                 setOpenPopover(false);
+
+                // if enter
+                if(e.keyCode === 13){
+                    refEditable.current.blur();
+                }
             }}
             // get size of letters selected with selectionStart
             onMouseUp={(e)=>{
