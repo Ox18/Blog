@@ -1,12 +1,12 @@
-import Head from 'next/head'
-import Articulo from '../components/common/Articulo'
-import Sidebar from '../components/common/Sidebar'
+import HomeStoriesLayout from '../components/layout/HomeStoriesLayout'
 import MainLayout from '../components/layout/MainLayout'
 
 export default function Home() {
   return (
     <MainLayout>
-      <Sidebar />
+      <HomeStoriesLayout >
+        <div>ga</div>
+      </HomeStoriesLayout>
     </MainLayout>
   )
 }
