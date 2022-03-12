@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { Box } from '@chakra-ui/react'
 import Placeholder from './Placeholder'
+import PopoverTool from './Popover'
 
 const defaultStyleText = {
     fontFamily: 'Georgia,Cambria,"Times New Roman",Times,serif',
@@ -85,7 +86,11 @@ const EditableContent = ({
             setVisibleTextarea(false);
         }
         setEditing(false);
+        setOpenPopover(false);
     }
+
+    const [openPopover, setOpenPopover] = useState(false);
+
 
   return (
     <Box>
@@ -126,8 +131,24 @@ const EditableContent = ({
                     const newLabel = refEditable.current.innerText;
                     setLabel(newLabel);
                 }, 100)
+                setOpenPopover(false);
+            }}
+            // get size of letters selected with selectionStart
+            onMouseUp={(e)=>{
+                const selection = window.getSelection();
+                const range = selection.getRangeAt(0);
+                const start = range.startOffset;
+                const end = range.endOffset;
+                if(start !== end){
+                    setOpenPopover(true);
+                }
             }}
         ></Box>
+        <PopoverTool 
+            px={refEditable.current ? refEditable.current.offsetParent.offsetLeft : 0}
+            py={refEditable.current ? refEditable.current.offsetParent.offsetTop : 0}
+            isOpen={openPopover}
+        />
     </Box>
   )
 }
