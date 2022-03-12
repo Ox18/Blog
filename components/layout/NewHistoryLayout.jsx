@@ -1,14 +1,24 @@
-import { Container, Flex } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import NavBarHorizontal from "../common/NavBarHorizontal";
-import Sidebar from "../common/Sidebar";
 
 const NewHistoryLayout = ({
   children,
 }) => {
   return (
-    <div>
-      <NavBarHorizontal />
-    </div>
+    <Box>
+      <NavBarHorizontal />      
+      <main>
+        <article
+          style={{
+            position: "relative",
+            minHeight: "calc(100vh - 65px)!important",
+            overflow: "hidden",
+          }}
+        >
+          {children}
+        </article>
+      </main>
+    </Box>
   )
 }
 
