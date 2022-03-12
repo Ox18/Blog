@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Box } from '@chakra-ui/react'
 import Placeholder from './Placeholder'
 import PopoverTool from './Popover'
@@ -72,8 +72,11 @@ const TYPES = {
 const EditableContent = ({
     type = TYPES.P,
     placeholder = "Escribe algo",
+    label,
+    setLabel,
+    onEnterCreateItem,
+    initialFocus = false
 }) => {
-    const [label, setLabel] = useState("");
 
     const refEditable = useRef(null)
 
@@ -90,6 +93,16 @@ const EditableContent = ({
     }
 
     const [openPopover, setOpenPopover] = useState(false);
+
+    useEffect(() => {
+        setTimeout(() => {
+            if(refEditable.current && initialFocus){
+                refEditable.current.focus();
+                console.log("focus")
+            }
+        }, 100);
+    }, [])
+    
 
 
   return (
@@ -136,6 +149,10 @@ const EditableContent = ({
                 // if enter
                 if(e.keyCode === 13){
                     refEditable.current.blur();
+                    setTimeout(()=>{
+                        onEnterCreateItem();
+                        
+                    }, 140);
                 }
             }}
             // get size of letters selected with selectionStart
