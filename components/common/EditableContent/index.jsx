@@ -46,7 +46,7 @@ const EditableContent = () => {
                         outline: "none",
                         fontFamily: 'Georgia,Cambria,"Times New Roman",Times,serif',
                         marginTop: "10px",
-                        fontSize: "2.25rem",
+                        fontSize: "2.9em",
                         width: "100%",
                         lineHeight: "1.2",
                     }}
@@ -58,6 +58,9 @@ const EditableContent = () => {
                         setTimeout(()=>{
                             setLabel(e.target.innerText);
                         }, 100);
+                        if(e.keyCode === 13){
+                            refEditable.current.blur();
+                        }
                     }}
                 >
                     {defaultText}
@@ -65,7 +68,7 @@ const EditableContent = () => {
             )
         }
         {
-            !visibleTextarea && (<Heading as="h3" size="xl" mt="10px" 
+            !visibleTextarea && (<Heading as="h1" size="xl" mt="10px" fontSize={"2.9em"}
             onMouseEnter={onMouseEnterHeading}
             onMouseLeave={onMouseLeaveHeading}
             fontFamily={'Georgia,Cambria,"Times New Roman",Times,serif'} fontWeight={"normal"} >
