@@ -1,7 +1,8 @@
-import { Circle, Container, Flex, Image } from '@chakra-ui/react'
 import React from 'react'
-
-const imagePic = require("../../../assets/images/profile.jpg");
+import { Circle, Container, Divider, Flex, Image } from '@chakra-ui/react'
+import { BiHomeAlt, BiBell, BiBookmarks, BiSpreadsheet, BiEdit } from 'react-icons/bi'
+import Icon from "../Icon";
+import SidebarLink from '../SidebarLink';
 
 const Sidebar = () => {
   return (
@@ -14,23 +15,21 @@ const Sidebar = () => {
       direction={"column"}
       alignItems={"center"}
       >
-      <div>a</div>
-      <div>b</div>
-      {/* <Container pb="16px">
-        <Image 
-          src={"/images/profile/profile.jpg"} 
-          width="32px"
-          height="32px"
-          rounded="full" 
-          alt='profile'
-          loading={"lazy"}
-        />
-        <Circle
-          size={"32px"}
-          bg="yellow"
-        />
-      </Container> */}
-      <Container pb="16px">
+      <Container
+        padding={"40px 0"}
+      >
+        Logo
+      </Container>
+      <Container>
+        <SidebarLink icon={BiHomeAlt} />
+        <SidebarLink icon={BiBell} />
+        <SidebarLink icon={BiBookmarks} />
+        <SidebarLink icon={BiSpreadsheet} />
+        <SidebarLink icon={BiEdit} />
+      </Container>
+      <Container pb="16px" 
+        cursor={"pointer"}
+      >
         <Flex
           direction={"column"}
           alignItems={"center"}
