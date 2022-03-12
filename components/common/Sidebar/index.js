@@ -25,6 +25,9 @@ const Sidebar = () => {
         <SidebarLink icon={BiBell} />
         <SidebarLink icon={BiBookmarks} />
         <SidebarLink icon={BiSpreadsheet} />
+        <SidebarLink>
+          <Divider width={"24px"} borderColor="rgba(230, 230, 230, 1)" />
+        </SidebarLink>
         <SidebarLink icon={BiEdit} />
       </Container>
       <Container pb="16px" 
