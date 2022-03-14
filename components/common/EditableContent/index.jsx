@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Box } from '@chakra-ui/react'
+import { Box, Circle } from '@chakra-ui/react'
 import Placeholder from './Placeholder'
 import PopoverTool from './Popover'
 
@@ -76,7 +76,10 @@ const EditableContent = ({
     setLabel,
     onEnterCreateItem,
     initialFocus = false,
-    styles = []
+    id,
+    styles = [],
+    index = -1,
+    onChangeType,
 }) => {
 
     const refEditable = useRef(null)
@@ -95,6 +98,8 @@ const EditableContent = ({
 
     const [openPopover, setOpenPopover] = useState(false);
 
+    const [isCircelEnter, setIsCircelEnter] = useState(false);
+
     useEffect(() => {
         setTimeout(() => {
             if(refEditable.current && initialFocus){
@@ -104,12 +109,63 @@ const EditableContent = ({
                 window.scrollTo(0, refEditable.current.offsetTop - 100);
             }
         }, 100);
+        // eslint-disable-next-line
     }, [])
-    
 
+    useEffect(() => {
+        if(type === TYPES.SUBTITLE && index !== 1){
+            onChangeType(TYPES.H1);
+        }
+        if(type === TYPES.P && index === 1){
+            onChangeType(TYPES.SUBTITLE);
+        }
+    }, [index, onChangeType, type])
+    
+    
+  const isTitleOrSubtitle = [TYPES.TITLE, TYPES.SUBTITLE].includes(type);
 
   return (
-    <Box>
+    <Box position={"relative"}>
+        {
+            isTitleOrSubtitle && editing && (
+                <div style={{
+                    position: "absolute",
+                    left: type === TYPES.TITLE ? "-50px" : "-75px",
+                    color: "#7e7e7e"
+                }}>
+                    {type === TYPES.TITLE ? "Titulo" : "Subtitulo"}
+                </div>
+            )
+        }
+        {
+            !isTitleOrSubtitle && (editing || isCircelEnter) && label.length === 0  && (
+                <Circle 
+                    border={"1px solid black"}
+                    size={"40px"}
+                    fontSize={"40px"}
+                    fontWeight={"100"}
+                    display={"flex"}
+                    alignItems={"center"}
+                    justifyContent={"center"}
+                    textAlign={"start"}
+                    position={"absolute"}
+                    left={"-50px"}
+                    top={"15px"}
+                    cursor={"pointer"}
+                    onClick={()=>{
+                        alert("GA")
+                    }}
+                    onMouseEnter={()=>{
+                        setIsCircelEnter(true)
+                    }}
+                    onMouseLeave={()=>{
+                        setIsCircelEnter(false)
+                    }}
+                >
+                    <div>+</div>
+                </Circle>
+            )
+        }
         {
             !visibleTextarea && (
                 <Box
@@ -128,7 +184,7 @@ const EditableContent = ({
         }
         <Box
             ref={refEditable}
-            borderLeft={[TYPES.TITLE, TYPES.SUBTITLE].includes(type) && editing ? "1px solid rgba(0,0,0,.15)" : "none"}
+            borderLeft={ isTitleOrSubtitle && editing ? "1px solid rgba(0,0,0,.15)" : "none"}
             outline={"none"}
             contentEditable
             suppressContentEditableWarning

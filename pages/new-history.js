@@ -5,42 +5,51 @@ import NewHistoryLayout from "../components/layout/NewHistoryLayout";
 
 const initialState = [
     {
-        id: Date.now(),
+        id: 0,
         label: "",
         type: "title",
         placeholder: "Titulo 1 (Opcional)",
     },
     {
-        id: Date.now() + 1,
+        id: 1,
         label: "",
         type: "subtitle",
         placeholder: "Subtitulo 1 (Opcional)",
     },
     {
-        id: Date.now() + 2,
+        id: 2,
         label: "",
         type: "h1",
         placeholder: "Titulo 2",
     },
     {
-        id: Date.now() + 3,
+        id: 3,
         label: "",
         type: "h2",
         placeholder: "Titulo 3",
     },
     {
-        id: Date.now() + 4,
+        id: 4,
         label: "",
         type: "h3",
         placeholder: "Titulo 4",
     },
     {
-        id: Date.now() + 5,
+        id: 5,
         label: "",
         type: "p",
         placeholder: "Texto",
     }
 ]
+
+const reOrderItems = (items = [])=>{
+    return items.map((item, index)=>{
+        return {
+            ...item,
+            id: index
+        }
+    })
+}
 
 export default function NewHistory() {
 
@@ -64,13 +73,26 @@ export default function NewHistory() {
         setItems(newItems);
     }
 
+    const onChangeType = (idItem, type)=>{
+        const itemPositionIndex = items.findIndex(item => item.id === idItem);
+        const item = items[itemPositionIndex];
+        const newItem = {
+            ...item,
+            type
+        }
+        const firstItems = items.slice(0, itemPositionIndex);
+        const lastItems = items.slice(itemPositionIndex + 1);
+        const newItems = [...firstItems, newItem, ...lastItems];
+        setItems(newItems);
+    }
+
     return(
     <NewHistoryLayout>
         <Box mt={"20px"} pt={"0px"} pb={"5px"}>
             <Box pb={"45px"} maxW={"740px"} pl={"20px"} margin={"0 auto"} width={"100%"} pr={"20px"}>
                 
                 {
-                    items.map(item => (
+                    items.map((item, index) => (
                         <EditableContent
                             key={item.id}
                             {...item}
@@ -79,6 +101,10 @@ export default function NewHistory() {
                             }}
                             onEnterCreateItem={()=>{
                                 onEnterCreateItem(item.id)
+                            }}
+                            index={index}
+                            onChangeType={(type)=>{
+                                onChangeType(item.id, type)
                             }}
                         />
                     ))
